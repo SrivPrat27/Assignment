@@ -1,3 +1,6 @@
+/**
+ * Stores all the properties of a book.
+ **/
 public class Books {
 
     private String book_title;
@@ -31,6 +34,35 @@ public class Books {
     public String getBook_title() {
         return book_title;
     }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public String getISBN() {
+        return ISBN;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public int getPublished_year() {
+        return published_year;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public Binding_type getBinding_type() {
+        return binding_type;
+    }
+
 
 
 }
