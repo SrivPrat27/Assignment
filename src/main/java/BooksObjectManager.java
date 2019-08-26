@@ -12,7 +12,7 @@ public class BooksObjectManager {
         databaseOfBooks.add(new Books("Harry Potter and the Goblet of Fire","JK Rowling","545644651","Penguin","English",1998,620,Binding_type.Hardbound));
         databaseOfBooks.add(new Books("Harry Potter and the Half Blood Prince","JK Rowling","545644651","Penguin","English",1999,620,Binding_type.Hardbound));
         databaseOfBooks.add(new Books("Harry Potter and the Deathly Hallows","JK Rowling","545644651","Penguin","English",2000,620,Binding_type.Hardbound));
-        databaseOfBooks.add(new Books("Witcher","A Sapkowski","548413212","Orient","English",1997,850,Binding_type.PaperBack));
+        databaseOfBooks.add(new Books("Witcher","A Sapkowski","548413212","Orient","Polish",1997,850,Binding_type.PaperBack));
         databaseOfBooks.add(new Books("Gitanjali","R Tagore", "487846464","Penguin","Hindi",1987,595,Binding_type.Digital));
         databaseOfBooks.add(new Books("Lord of the Rings","JRR Tolkien","1254841466","Landmark","English",1990,659.20,Binding_type.Hardbound));
         databaseOfBooks.add(new Books("Game of Thrones","George RR Martin","4856454651","Penguin","English",1982,1240.00,Binding_type.Digital));
