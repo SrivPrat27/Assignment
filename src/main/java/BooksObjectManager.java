@@ -50,7 +50,7 @@ public class BooksObjectManager {
         System.out.println("Ordering your book...");
         Books books = search(name);
         if(books!=null){
-            System.out.println("Congrats !! Ordered");
+            System.out.println("You book "+name+" has been Ordered");
         }
         else
         {
@@ -59,10 +59,10 @@ public class BooksObjectManager {
     }
 
     public void view(){
-        System.out.format("%20s %15s %15s %10s %10s %10s %20s %10s","Title","Author","ISBN","Publisher","Language","Published Year","Price","Binding");
+        System.out.format("%40s %20s %15s %10s %10s %15s %20s %10s","Title","Author","ISBN","Publisher","Language","Published Year","Price","Binding");
         System.out.println();
         for(Books book : databaseOfBooks){
-            System.out.format("%20s %15s %15s %10s %10s %10d %20f %10s",book.getBook_title(),book.getAuthor(),book.getISBN(),book.getPublisher(),book.getLanguage(),book.getPublished_year(),book.getPrice(),book.getBinding_type());
+            System.out.format("%40s %20s %15s %10s %10s %15d %20f %10s",book.getBook_title(),book.getAuthor(),book.getISBN(),book.getPublisher(),book.getLanguage(),book.getPublished_year(),book.getPrice(),book.getBinding_type());
             System.out.println();
         }
         System.out.println();

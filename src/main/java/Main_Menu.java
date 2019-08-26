@@ -97,6 +97,9 @@ public class Main_Menu {
                         System.out.println("Published year :" + books.getPublished_year());
                         System.out.println("Publisher :" + books.getPublisher());
                         System.out.println();
+                        System.out.println("Enter 1 if you want to buy this book");
+                        if(ob.readLine().equals("1"))
+                            booksObjectManager.order(name);
                     } else {
                         System.out.println("Book not found");
                     }
