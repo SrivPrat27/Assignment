@@ -1,46 +1,46 @@
 /**
  * Stores all the properties of a book.
  **/
-public class Books {
+public class Book {
 
-    private String book_title;
+    private String bookTitle;
 
     private String author;
 
-    private String ISBN;
+    private String bookISBN;
 
     private String publisher;
 
     private String language;
 
-    private int published_year;
+    private int publishedYear;
 
     private double price;
 
     private Binding_type binding_type;
 
-    public Books(String book_title, String author, String ISBN, String publisher, String language, int published_year, double price, Binding_type binding_type) {
-        this.book_title = book_title;
+    public Book(String bookTitle, String author, String bookISBN, String publisher, String language, int published_year, double price, Binding_type binding_type) {
+        this.bookTitle = bookTitle;
         this.author = author;
-        this.ISBN = ISBN;
+        this.bookISBN = bookISBN;
         this.publisher = publisher;
         this.language = language;
-        this.published_year = published_year;
+        this.publishedYear = published_year;
         this.price = price;
         this.binding_type = binding_type;
 
     }
 
-    public String getBook_title() {
-        return book_title;
+    public String getBookTitle() {
+        return bookTitle;
     }
 
     public String getAuthor() {
         return author;
     }
 
-    public String getISBN() {
-        return ISBN;
+    public String getBookISBN() {
+        return bookISBN;
     }
 
     public String getPublisher() {
@@ -51,8 +51,8 @@ public class Books {
         return language;
     }
 
-    public int getPublished_year() {
-        return published_year;
+    public int getPublishedYear() {
+        return publishedYear;
     }
 
     public double getPrice() {
