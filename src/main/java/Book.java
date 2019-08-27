@@ -1,3 +1,5 @@
+import java.util.Comparator;
+
 /**
  * Stores all the properties of a book.
  **/
@@ -63,6 +65,34 @@ public class Book {
         return binding_type;
     }
 
+    public Comparator<Book> bookNameComparator = new Comparator<Book>() {
+        public int compare(Book book1, Book book2) {
+            String bookTitle1 = book1.getBookTitle();
+            String bookTitle2 = book2.getBookTitle();
 
+            return bookTitle1.compareTo(bookTitle2);
+        }
+    };
 
+    public Comparator<Book> bookPublishedYearComparator = new Comparator<Book>() {
+        public int compare(Book book1, Book book2) {
+            int bookYear1 = book1.getPublishedYear();
+            int bookYear2 = book2.getPublishedYear();
+
+            return bookYear1-bookYear2;
+        }
+    };
+
+    public Comparator<Book> bookAuthorComparator = new Comparator<Book>() {
+        public int compare(Book book1, Book book2) {
+            String author1 = book1.getAuthor();
+            String author2 = book2.getAuthor();
+
+            return author1.compareTo(author2);
+        }
+    };
+    
 }
+
+
+
