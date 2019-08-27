@@ -9,7 +9,6 @@ import java.io.InputStreamReader;
 public class Main_Menu {
     public static void main(String args[]) throws Exception {
         // Menu Display
-        //Wowzzaaaa
         int continueToShop = 0;
         BooksObjectManager booksObjectManager = new BooksObjectManager();
 
@@ -72,31 +71,29 @@ public class Main_Menu {
                     System.out.println("Enter the price of the book");
                     Double price = Double.parseDouble(ob.readLine());
 
-                    Books book = new Books(title, author, ISBN, publisher, language, year, price, binding_type);
+                    Book book = new Book(title, author, ISBN, publisher, language, year, price, binding_type);
                     booksObjectManager.store(book);
 
                     System.out.println();
+                    // If the user continues to want the app
                     System.out.println("Type 1 if you want to continue !!");
                     continueToShop = !ob.readLine().equals("1") ? 0 : 1;
                     System.out.println();
+                    System.out.println("Book added successfully...");
                     //store()
                     break;
 
                 case 2:
                     System.out.println("Enter name of the book to be found");
                     String name = ob.readLine();
-                    Books books = booksObjectManager.search(name);
+                    Book books = booksObjectManager.search(name);
+                    System.out.println("Searching for your book.....");
                     if (books != null) {
                         System.out.println("Book Found");
-                        System.out.println("Title : " + books.getBook_title());
-                        System.out.println("Author : " + books.getAuthor());
-                        System.out.println("Binding Type : " + books.getBinding_type());
-                        System.out.println("ISBN : " + books.getISBN());
-                        System.out.println("Language :" + books.getLanguage());
-                        System.out.println("Price :" + books.getPrice());
-                        System.out.println("Published year :" + books.getPublished_year());
-                        System.out.println("Publisher :" + books.getPublisher());
-                        System.out.println();
+                        booksObjectManager.toString(books);
+                        System.out.println("Enter 1 if you want to buy this book");
+                        if(ob.readLine().equals("1"))
+                            booksObjectManager.order(name);
                     } else {
                         System.out.println("Book not found");
                     }
@@ -111,6 +108,7 @@ public class Main_Menu {
                 case 3:
                     System.out.println("Enter book you want to buy !!");
                     booksObjectManager.order(ob.readLine());
+                    System.out.println("Ordering your book...");
                     //order()
 
                     System.out.println("Type 1 if you want to continue !!");
@@ -121,7 +119,20 @@ public class Main_Menu {
 
                 case 4:
                     System.out.println("Books Collection...");
-                    booksObjectManager.view();
+                    System.out.println("Select the property you want to filter the collection by : ");
+                    System.out.println("1. Author");
+                    System.out.println("2. Title");
+                    System.out.println("3. Published Year");
+
+                    int filterChoice = Integer.parseInt(ob.readLine());
+
+                    System.out.println("Enter order");
+                    System.out.println("1. Ascending");
+                    System.out.println("2. Descending");
+
+                    int order = Integer.parseInt(ob.readLine());
+
+                    booksObjectManager.view(filterChoice, order);
 
                     System.out.println("Type 1 if you want to continue !!");
                     continueToShop = !ob.readLine().equals("1") ? 0 : 1;
