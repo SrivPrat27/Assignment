@@ -21,6 +21,9 @@ public class Book {
 
     private Binding_type binding_type;
 
+    public Book(){
+    }
+
     public Book(String bookTitle, String author, String bookISBN, String publisher, String language, int published_year, double price, Binding_type binding_type) {
         this.bookTitle = bookTitle;
         this.author = author;
@@ -91,7 +94,7 @@ public class Book {
             return author1.compareTo(author2);
         }
     };
-    
+
 }
 
 

@@ -119,7 +119,20 @@ public class Main_Menu {
 
                 case 4:
                     System.out.println("Books Collection...");
-                    booksObjectManager.view();
+                    System.out.println("Select the property you want to filter the collection by : ");
+                    System.out.println("1. Author");
+                    System.out.println("2. Title");
+                    System.out.println("3. Published Year");
+
+                    int filterChoice = Integer.parseInt(ob.readLine());
+
+                    System.out.println("Enter order");
+                    System.out.println("1. Ascending");
+                    System.out.println("2. Descending");
+
+                    int order = Integer.parseInt(ob.readLine());
+
+                    booksObjectManager.view(filterChoice, order);
 
                     System.out.println("Type 1 if you want to continue !!");
                     continueToShop = !ob.readLine().equals("1") ? 0 : 1;

@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class BooksObjectManager {
@@ -56,12 +57,34 @@ public class BooksObjectManager {
         }
     }
 
-    public void view(){
+    public void view(int filterChoice, int order){
+        Book book = new Book();
+        if(filterChoice == 1)
+        {
+            if(order == 1)
+                Collections.sort(databaseOfBooks, book.bookAuthorComparator);
+            else
+                Collections.sort(databaseOfBooks, Collections.reverseOrder(book.bookAuthorComparator));
+        }
+        else if(filterChoice == 2)
+        {
+            if(order == 1)
+                Collections.sort(databaseOfBooks, book.bookNameComparator);
+            else
+                Collections.sort(databaseOfBooks, Collections.reverseOrder(book.bookNameComparator));
+        }
+        else if(filterChoice == 3)
+        {
+            if(order == 1)
+                Collections.sort(databaseOfBooks, book.bookPublishedYearComparator);
+            else
+                Collections.sort(databaseOfBooks, Collections.reverseOrder(book.bookPublishedYearComparator));
+        }
         // View all the books present in the collection
         System.out.format("%40s %20s %15s %10s %10s %15s %20s %10s","Title","Author","ISBN","Publisher","Language","Published Year","Price","Binding");
         System.out.println();
-        for(Book book : databaseOfBooks){
-            System.out.format("%40s %20s %15s %10s %10s %15d %20f %10s",book.getBookTitle(),book.getAuthor(),book.getBookISBN(),book.getPublisher(),book.getLanguage(),book.getPublishedYear(),book.getPrice(),book.getBinding_type());
+        for(Book eachBook : databaseOfBooks){
+            System.out.format("%40s %20s %15s %10s %10s %15d %20f %10s",eachBook.getBookTitle(),eachBook.getAuthor(),eachBook.getBookISBN(),eachBook.getPublisher(),eachBook.getLanguage(),eachBook.getPublishedYear(),eachBook.getPrice(),eachBook.getBinding_type());
             System.out.println();
         }
         System.out.println();
@@ -79,6 +102,5 @@ public class BooksObjectManager {
         System.out.println("Publisher :" + book.getPublisher());
         System.out.println();
     }
-
 
 }
