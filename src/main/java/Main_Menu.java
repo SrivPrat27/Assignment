@@ -58,20 +58,20 @@ public class Main_Menu {
                     System.out.println("3 for PaperBack");
                     int binding_input = Integer.parseInt(ob.readLine());
                     // Taking binding_input from user of binding type which can only be one of these three kinds.
-                    Binding_type binding_type;
+                    BindingType bindingType;
                     if (binding_input == 1)
-                        binding_type = Binding_type.Digital;
+                        bindingType = BindingType.Digital;
                     else if (binding_input == 2)
-                        binding_type = Binding_type.Hardbound;
+                        bindingType = BindingType.Hardbound;
                     else if (binding_input == 3)
-                        binding_type = Binding_type.PaperBack;
+                        bindingType = BindingType.PaperBack;
                     else
                         throw new Exception("Invalid binding type");
 
                     System.out.println("Enter the price of the book");
                     Double price = Double.parseDouble(ob.readLine());
 
-                    Book book = new Book(title, author, ISBN, publisher, language, year, price, binding_type);
+                    Book book = new Book(title, author, ISBN, publisher, language, year, price, bindingType);
                     booksObjectManager.store(book);
 
                     System.out.println();

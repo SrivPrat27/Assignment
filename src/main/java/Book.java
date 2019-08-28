@@ -19,12 +19,12 @@ public class Book {
 
     private double price;
 
-    private Binding_type binding_type;
+    private BindingType bindingType;
 
     public Book(){
     }
 
-    public Book(String bookTitle, String author, String bookISBN, String publisher, String language, int published_year, double price, Binding_type binding_type) {
+    public Book(String bookTitle, String author, String bookISBN, String publisher, String language, int published_year, double price, BindingType bindingType) {
         this.bookTitle = bookTitle;
         this.author = author;
         this.bookISBN = bookISBN;
@@ -32,7 +32,7 @@ public class Book {
         this.language = language;
         this.publishedYear = published_year;
         this.price = price;
-        this.binding_type = binding_type;
+        this.bindingType = bindingType;
 
     }
 
@@ -64,8 +64,8 @@ public class Book {
         return price;
     }
 
-    public Binding_type getBinding_type() {
-        return binding_type;
+    public BindingType getBindingType() {
+        return bindingType;
     }
 
     public Comparator<Book> bookNameComparator = new Comparator<Book>() {
