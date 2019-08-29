@@ -24,13 +24,13 @@ public class Book {
     public Book(){
     }
 
-    public Book(String bookTitle, String author, String bookISBN, String publisher, String language, int published_year, double price, BindingType bindingType) {
+    public Book(String bookTitle, String author, String bookISBN, String publisher, String language, int publishedYear, double price, BindingType bindingType) {
         this.bookTitle = bookTitle;
         this.author = author;
         this.bookISBN = bookISBN;
         this.publisher = publisher;
         this.language = language;
-        this.publishedYear = published_year;
+        this.publishedYear = publishedYear;
         this.price = price;
         this.bindingType = bindingType;
 

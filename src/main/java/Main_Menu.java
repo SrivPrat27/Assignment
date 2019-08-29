@@ -127,10 +127,10 @@ public class Main_Menu {
                     int filterChoice = Integer.parseInt(ob.readLine());
 
                     System.out.println("Enter order");
-                    System.out.println("1. Ascending");
-                    System.out.println("2. Descending");
+                    System.out.println("ASC");
+                    System.out.println("DESC");
 
-                    int order = Integer.parseInt(ob.readLine());
+                    String order = (ob.readLine());
 
                     booksObjectManager.view(filterChoice, order);
 

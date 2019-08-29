@@ -1,11 +1,15 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class BooksObjectManager {
 
-    static List<Book> databaseOfBooks = new ArrayList<Book>();
+//    static List<Book> databaseOfBooks = new ArrayList<Book>();
+    List<Book> bookList = new ArrayList<Book>();
 
+/*
     static {
         // Initialises the list during runtime
         databaseOfBooks.add(new Book("Harry Potter and the Sorcerer's Stone","JK Rowling","545644651","Penguin","English",1995,620, BindingType.Hardbound));
@@ -28,18 +32,25 @@ public class BooksObjectManager {
         databaseOfBooks.add(new Book("As you like it","W Shakespeare","8984949445","Orient","English",1852,270, BindingType.PaperBack));
         databaseOfBooks.add(new Book("Crooked House","Agatha Cristie","454975494545","Orient","Emglish",1987,653.00, BindingType.Hardbound));
     }
+*/
 
-    public BooksObjectManager() {
+    public BooksObjectManager() throws IOException {
+        initializeListOfBooks();
+    }
+
+    public void initializeListOfBooks() throws IOException {
+        CSVReaderJava csvReaderJava = new CSVReaderJava();
+        bookList = csvReaderJava.initialize();
     }
 
     public void store(Book book){
         // Adding book to the the list where it can be searched and bought.
-        databaseOfBooks.add(book);
+        bookList.add(book);
     }
 
     public Book search(String name){
-        // Searching for the book in the list databaseOfBooks
-        for(Book book : databaseOfBooks){
+        // Searching for the book in the list bookList
+        for(Book book : bookList){
             if(book.getBookTitle().equals(name))
                 return book;
         }
@@ -57,33 +68,26 @@ public class BooksObjectManager {
         }
     }
 
-    public void view(int filterChoice, int order){
+    public void view(int filterChoice, String order){
         Book book = new Book();
+        Comparator<Book> bookComparator ;
+
         if(filterChoice == 1)
-        {
-            if(order == 1)
-                Collections.sort(databaseOfBooks, book.bookAuthorComparator);
-            else
-                Collections.sort(databaseOfBooks, Collections.reverseOrder(book.bookAuthorComparator));
-        }
-        else if(filterChoice == 2)
-        {
-            if(order == 1)
-                Collections.sort(databaseOfBooks, book.bookNameComparator);
-            else
-                Collections.sort(databaseOfBooks, Collections.reverseOrder(book.bookNameComparator));
-        }
+            bookComparator = book.bookAuthorComparator;
         else if(filterChoice == 3)
-        {
-            if(order == 1)
-                Collections.sort(databaseOfBooks, book.bookPublishedYearComparator);
-            else
-                Collections.sort(databaseOfBooks, Collections.reverseOrder(book.bookPublishedYearComparator));
-        }
+            bookComparator = book.bookPublishedYearComparator;
+        else
+            bookComparator = book.bookNameComparator;
+
+        if(SortOrder.DESC.toString().equals("DESC"))
+            Collections.sort(bookList, Collections.reverseOrder(bookComparator));
+        else
+            Collections.sort(bookList, bookComparator);
+
         // View all the books present in the collection
         System.out.format("%40s %20s %15s %10s %10s %15s %20s %10s","Title","Author","ISBN","Publisher","Language","Published Year","Price","Binding");
         System.out.println();
-        for(Book eachBook : databaseOfBooks){
+        for(Book eachBook : bookList){
             System.out.format("%40s %20s %15s %10s %10s %15d %20f %10s",eachBook.getBookTitle(),eachBook.getAuthor(),eachBook.getBookISBN(),eachBook.getPublisher(),eachBook.getLanguage(),eachBook.getPublishedYear(),eachBook.getPrice(),eachBook.getBindingType());
             System.out.println();
         }
