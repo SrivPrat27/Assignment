@@ -1,26 +1,29 @@
+import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
 public class RandomFileGenerator {
     public static void main(String args[]) throws IOException {
-        Book book;
-        for(int i=0;i<1000;i++)
-        {
-            FileWriter csvWriter = new FileWriter("/home/pratyush/Testing/new.csv");
-            StringBuilder sb = null ;
-            for(int j=0;j<5;j++)
-            {
-                sb.append(generateRandomString());
-                sb.append(",");
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("/home/pratyush/Testing/Write.csv"));
+        long startTime = System.currentTimeMillis();
+        for (int j = 0; j < 1000000; j++) {
+            StringBuilder stringBuilder = new StringBuilder("");
+            for (int i = 0; i < 5; i++) {
+                stringBuilder.append(generateRandomString());
+                stringBuilder.append(",");
             }
-            sb.append(String.valueOf((int)(Math.random())));
-            sb.append(",");
-            sb.append(String.valueOf((Math.random())));
-            sb.append(",");
-            sb.append("Digital");
-            sb.append("\n");
-            csvWriter.write(sb.toString());
+            stringBuilder.append((int) (Math.random()));
+            stringBuilder.append(",");
+            stringBuilder.append(Math.random());
+            stringBuilder.append(",");
+            stringBuilder.append("Digital");
+            stringBuilder.append("\n");
+            bufferedWriter.write(stringBuilder.toString());
+            bufferedWriter.flush();
         }
+        bufferedWriter.close();
+        long closeTime = System.currentTimeMillis();
+        System.out.println(closeTime - startTime);
     }
 
     public static String generateRandomString() {
