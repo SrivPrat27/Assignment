@@ -6,7 +6,7 @@ import java.util.List;
 
 public class BooksObjectManager {
 
-//    static List<Book> databaseOfBooks = new ArrayList<Book>();
+    //    static List<Book> databaseOfBooks = new ArrayList<Book>();
     List<Book> bookList = new ArrayList<Book>();
 
 /*
@@ -43,59 +43,61 @@ public class BooksObjectManager {
         bookList = csvReaderJava.initialize();
     }
 
-    public void store(Book book){
+    public void store(Book book) {
         // Adding book to the the list where it can be searched and bought.
         bookList.add(book);
     }
 
-    public Book search(String name){
+    public Book search(String name) {
         // Searching for the book in the list bookList
-        for(Book book : bookList){
-            if(book.getBookTitle().equals(name))
+        long startTime = System.currentTimeMillis();
+        for (Book book : bookList) {
+            if (book.getBookTitle().equals(name))
+            {
+                long endTime = System.currentTimeMillis();
+                System.out.println(endTime - startTime);
                 return book;
+            }
         }
         return null;
     }
 
-    public void order(String name){
+    public void order(String name) {
         Book book = search(name);
-        if(book!=null){
-            System.out.println("You book "+name+" has been Ordered");
-        }
-        else
-        {
+        if (book != null) {
+            System.out.println("You book " + name + " has been Ordered");
+        } else {
             System.out.println("Book not found !! ");
         }
     }
 
-    public void view(int filterChoice, String order){
+    public void view(int filterChoice, String order) {
         Book book = new Book();
-        Comparator<Book> bookComparator ;
+        Comparator<Book> bookComparator;
 
-        if(filterChoice == 1)
+        if (filterChoice == 1)
             bookComparator = book.bookAuthorComparator;
-        else if(filterChoice == 3)
+        else if (filterChoice == 3)
             bookComparator = book.bookPublishedYearComparator;
         else
             bookComparator = book.bookNameComparator;
 
-        if(SortOrder.DESC.toString().equals("DESC"))
+        if (SortOrder.DESC.toString().equals(order))
             Collections.sort(bookList, Collections.reverseOrder(bookComparator));
         else
             Collections.sort(bookList, bookComparator);
 
         // View all the books present in the collection
-        System.out.format("%40s %20s %15s %10s %10s %15s %20s %10s","Title","Author","ISBN","Publisher","Language","Published Year","Price","Binding");
+        System.out.format("%40s %20s %15s %10s %10s %15s %20s %10s", "Title", "Author", "ISBN", "Publisher", "Language", "Published Year", "Price", "Binding");
         System.out.println();
-        for(Book eachBook : bookList){
-            System.out.format("%40s %20s %15s %10s %10s %15d %20f %10s",eachBook.getBookTitle(),eachBook.getAuthor(),eachBook.getBookISBN(),eachBook.getPublisher(),eachBook.getLanguage(),eachBook.getPublishedYear(),eachBook.getPrice(),eachBook.getBindingType());
+        for (Book eachBook : bookList) {
+            System.out.format("%40s %20s %15s %10s %10s %15d %20f %10s", eachBook.getBookTitle(), eachBook.getAuthor(), eachBook.getBookISBN(), eachBook.getPublisher(), eachBook.getLanguage(), eachBook.getPublishedYear(), eachBook.getPrice(), eachBook.getBindingType());
             System.out.println();
         }
         System.out.println();
     }
 
-    public void toString(Book book)
-    {
+    public void displayBook(Book book) {
         System.out.println("Title : " + book.getBookTitle());
         System.out.println("Author : " + book.getAuthor());
         System.out.println("Binding Type : " + book.getBindingType());

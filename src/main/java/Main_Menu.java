@@ -1,7 +1,6 @@
 /**
  * Displays the main menu with all the options.
- *
- * */
+ */
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -90,9 +89,9 @@ public class Main_Menu {
                     System.out.println("Searching for your book.....");
                     if (books != null) {
                         System.out.println("Book Found");
-                        booksObjectManager.toString(books);
+                        booksObjectManager.displayBook(books);
                         System.out.println("Enter 1 if you want to buy this book");
-                        if(ob.readLine().equals("1"))
+                        if (ob.readLine().equals("1"))
                             booksObjectManager.order(name);
                     } else {
                         System.out.println("Book not found");
