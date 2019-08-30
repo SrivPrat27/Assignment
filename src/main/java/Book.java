@@ -21,7 +21,7 @@ public class Book {
 
     private BindingType bindingType;
 
-    public Book(){
+    public Book() {
     }
 
     public Book(String bookTitle, String author, String bookISBN, String publisher, String language, int publishedYear, double price, BindingType bindingType) {
@@ -82,7 +82,7 @@ public class Book {
             int bookYear1 = book1.getPublishedYear();
             int bookYear2 = book2.getPublishedYear();
 
-            return bookYear1-bookYear2;
+            return bookYear1 - bookYear2;
         }
     };
 
