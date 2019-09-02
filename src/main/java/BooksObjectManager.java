@@ -1,4 +1,6 @@
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -8,6 +10,7 @@ public class BooksObjectManager {
 
     //    static List<Book> databaseOfBooks = new ArrayList<Book>();
     List<Book> bookList = new ArrayList<Book>();
+    BufferedReader ob = new BufferedReader(new InputStreamReader(System.in));
 
 /*
     static {
@@ -41,6 +44,7 @@ public class BooksObjectManager {
     public void initializeListOfBooks() throws IOException {
         CSVReaderJava csvReaderJava = new CSVReaderJava();
         bookList = csvReaderJava.initialize();
+        sortBooks(2,SortOrder.ASC.toString());
     }
 
     public void store(Book book) {
@@ -49,15 +53,20 @@ public class BooksObjectManager {
     }
 
     public Book search(String name) {
-        // Searching for the book in the list bookList
+        // Searching for the book in the list bookList using Binary Search Algo
+        sortBooks(2, "ASC"); // Sorting
         long startTime = System.currentTimeMillis();
-        for (Book book : bookList) {
-            if (book.getBookTitle().equals(name))
-            {
-                long endTime = System.currentTimeMillis();
-                System.out.println(endTime - startTime);
-                return book;
-            }
+        int leftIndex = 0;
+        int rightIndex = bookList.size()-1;
+        while(leftIndex <= rightIndex)
+        {
+            int midIndex = leftIndex + (rightIndex - leftIndex)/2;
+            if(bookList.get(midIndex).getBookTitle().equals(name))
+                return bookList.get(midIndex);
+            else if(bookList.get(midIndex).getBookTitle().compareTo(name)<0)
+                leftIndex = midIndex + 1 ;
+            else
+                rightIndex = midIndex - 1;
         }
         return null;
     }
@@ -71,7 +80,7 @@ public class BooksObjectManager {
         }
     }
 
-    public void view(int filterChoice, String order) {
+    public void sortBooks(int filterChoice, String order) {
         Book book = new Book();
         Comparator<Book> bookComparator;
 
@@ -88,16 +97,34 @@ public class BooksObjectManager {
             Collections.sort(bookList, bookComparator);
 
         // View all the books present in the collection
-        System.out.format("%40s %20s %15s %10s %10s %15s %20s %10s", "Title", "Author", "ISBN", "Publisher", "Language", "Published Year", "Price", "Binding");
-        System.out.println();
-        for (Book eachBook : bookList) {
-            System.out.format("%40s %20s %15s %10s %10s %15d %20f %10s", eachBook.getBookTitle(), eachBook.getAuthor(), eachBook.getBookISBN(), eachBook.getPublisher(), eachBook.getLanguage(), eachBook.getPublishedYear(), eachBook.getPrice(), eachBook.getBindingType());
-            System.out.println();
-        }
-        System.out.println();
     }
 
-    public void displayBook(Book book) {
+    public void view() throws IOException {
+        int continueToDisplay = 1;
+        int startIndex = 0;
+        int noOfBooksToBeDisplayed = 20;
+        while(continueToDisplay == 1)
+        {
+            if(startIndex >= bookList.size() && startIndex + noOfBooksToBeDisplayed < bookList.size())
+                return ;
+            System.out.format("%40s %20s %15s %10s %10s %15s %20s %10s", "Title", "Author", "ISBN", "Publisher", "Language", "Published Year", "Price", "Binding");
+            System.out.println();
+            for(int i = startIndex ; i < startIndex + noOfBooksToBeDisplayed ; i++){
+                Book eachBook = bookList.get(i);
+                System.out.format("%40s %20s %15s %10s %10s %15d %20f %10s", eachBook.getBookTitle(), eachBook.getAuthor(), eachBook.getBookISBN(), eachBook.getPublisher(), eachBook.getLanguage(), eachBook.getPublishedYear(), eachBook.getPrice(), eachBook.getBindingType());
+                System.out.println();
+            }
+            System.out.println("Do you want to go to the next page ? Press 1");
+            continueToDisplay = Integer.parseInt(ob.readLine());
+            if(continueToDisplay == 1)
+                startIndex = startIndex + noOfBooksToBeDisplayed ;
+            else
+                return;
+        }
+
+    }
+
+        public void displayBook(Book book) {
         System.out.println("Title : " + book.getBookTitle());
         System.out.println("Author : " + book.getAuthor());
         System.out.println("Binding Type : " + book.getBindingType());

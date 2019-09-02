@@ -10,7 +10,7 @@ class CSVReaderJava {
         RandomFileGenerator randomFileGenerator = new RandomFileGenerator();
         randomFileGenerator.createCsvFileWithRandomValues();
 
-        FileReader fileReader = new FileReader("/home/pratyush/Testing/Write.csv");
+        FileReader fileReader = new FileReader("Write.csv");
         BufferedReader bufferedReader = new BufferedReader(fileReader);
 
         String line = null;

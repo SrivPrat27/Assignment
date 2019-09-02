@@ -1,5 +1,4 @@
 import java.util.Comparator;
-
 /**
  * Stores all the properties of a book.
  **/

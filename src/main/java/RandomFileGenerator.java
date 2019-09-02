@@ -8,7 +8,7 @@ import java.util.Random;
 public class RandomFileGenerator {
     public void createCsvFileWithRandomValues() throws IOException {
 
-        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("/home/pratyush/Testing/Write.csv"));
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("Write.csv"));
 
         long startTime = System.currentTimeMillis();
 
