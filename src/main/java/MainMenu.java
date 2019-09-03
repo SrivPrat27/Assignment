@@ -2,6 +2,8 @@
  * Displays the main menu with all the options.
  */
 
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
@@ -87,16 +89,18 @@ public class MainMenu {
                     String name = ob.readLine();
                     Book books = booksObjectManager.search(name);
                     System.out.println("Searching for your book.....");
+                    long startTime = System.currentTimeMillis();
                     if (books != null) {
+                        System.out.println("Time taken to search : "+ (System.currentTimeMillis() - startTime));
                         System.out.println("Book Found");
                         booksObjectManager.displayBook(books);
                         System.out.println("Enter 1 if you want to buy this book");
                         if (ob.readLine().equals("1"))
                             booksObjectManager.order(name);
                     } else {
+                        System.out.println("Time taken to search : "+ (System.currentTimeMillis() - startTime));
                         System.out.println("Book not found");
                     }
-
                     System.out.println("Type 1 if you want to continue !!");
                     continueToShop = !ob.readLine().equals("1") ? 0 : 1;
                     System.out.println();
@@ -131,7 +135,9 @@ public class MainMenu {
 
                     String order = (ob.readLine());
 
+                    long start = System.currentTimeMillis();
                     booksObjectManager.sortBooks(filterChoice, order);
+                    System.out.println("Time taken to Sort : "+(System.currentTimeMillis() - start));
                     booksObjectManager.view();
 
                     System.out.println("Type 1 if you want to continue !!");
