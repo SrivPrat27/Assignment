@@ -105,11 +105,11 @@ public class BooksObjectManager {
         int noOfBooksToBeDisplayed = 20;
         while(continueToDisplay == 1)
         {
-            if(startIndex >= bookList.size() && startIndex + noOfBooksToBeDisplayed < bookList.size())
+            if(startIndex >= bookList.size())
                 return ;
             System.out.format("%40s %20s %15s %10s %10s %15s %20s %10s", "Title", "Author", "ISBN", "Publisher", "Language", "Published Year", "Price", "Binding");
             System.out.println();
-            for(int i = startIndex ; i < startIndex + noOfBooksToBeDisplayed ; i++){
+            for(int i = startIndex ; i < startIndex + noOfBooksToBeDisplayed && i < bookList.size(); i++){
                 Book eachBook = bookList.get(i);
                 System.out.format("%40s %20s %15s %10s %10s %15d %20f %10s", eachBook.getBookTitle(), eachBook.getAuthor(), eachBook.getBookISBN(), eachBook.getPublisher(), eachBook.getLanguage(), eachBook.getPublishedYear(), eachBook.getPrice(), eachBook.getBindingType());
                 System.out.println();
