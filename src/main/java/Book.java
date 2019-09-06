@@ -20,6 +20,7 @@ public class Book {
 
     private BindingType bindingType;
 
+    //For sort books operation.
     public Book() {
     }
 

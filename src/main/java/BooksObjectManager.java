@@ -1,23 +1,31 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.nio.file.Paths;
+import java.util.*;
 
 public class BooksObjectManager {
 
     List<Book> bookList = new ArrayList<Book>();
+    Map<String, TreeMap> stringTreeMapTreeMap = new TreeMap<>();
+    TreeMap<String, List<Book>> titleToListOfBookMap = new TreeMap<>();
+    TreeMap<String, List<Book>> authorToListOfBookMap = new TreeMap<>();
+    TreeMap<Integer, List<Book>> yearToListOfBookMap = new TreeMap<>();
+
     BufferedReader ob = new BufferedReader(new InputStreamReader(System.in));
 
     public BooksObjectManager() throws IOException {
         initializeListOfBooks();
     }
 
+
     public void initializeListOfBooks() throws IOException {
         CSVReaderJava csvReaderJava = new CSVReaderJava();
-        bookList = csvReaderJava.initialize();
+        //bookList = csvReaderJava.initializeListOfBooksInArrayList();
+        stringTreeMapTreeMap = csvReaderJava.initializeBooksMap();
+        titleToListOfBookMap = stringTreeMapTreeMap.get("Title");
+        authorToListOfBookMap = stringTreeMapTreeMap.get("Author");
+        yearToListOfBookMap = stringTreeMapTreeMap.get("Year");
         sortBooks(2, SortOrder.ASC.toString());
     }
 
@@ -26,30 +34,28 @@ public class BooksObjectManager {
         bookList.add(book);
     }
 
-    public Book search(String name) {
+    public List<Book> search(String name) {
         // Searching for the book in the list bookList using Binary Search Algorithm
-        sortBooks(2, "ASC"); // Sorting on the basis of Title
         long startTime = System.currentTimeMillis();
-        int leftIndex = 0;
-        int rightIndex = bookList.size() - 1;
-        while (leftIndex <= rightIndex) {
-            int midIndex = leftIndex + (rightIndex - leftIndex) / 2;
-            if (bookList.get(midIndex).getBookTitle().equals(name))
-                return bookList.get(midIndex);
-            else if (bookList.get(midIndex).getBookTitle().compareTo(name) < 0)
-                leftIndex = midIndex + 1;
-            else
-                rightIndex = midIndex - 1;
-        }
-        return null;
+        titleToListOfBookMap = stringTreeMapTreeMap.get("Title");
+        if (titleToListOfBookMap.containsKey(name)) {
+            return titleToListOfBookMap.get(name);
+        } else
+            return Collections.emptyList();
     }
 
+
     public void order(String name) {
-        Book book = search(name);
-        if (book != null) {
-            System.out.println("You book " + name + " has been Ordered");
-        } else {
-            System.out.println("Book not found !! ");
+        List<Book> books = search(name);
+        if (books.size() == 1)
+            displayBookDetailsView(books.get(0));
+        else if (books.size() == 0)
+            System.out.println("No Books Available");
+        else {
+            for (Book book : books) {
+                displayBookDetailsView(book);
+                System.out.println();
+            }
         }
     }
 
@@ -72,31 +78,63 @@ public class BooksObjectManager {
         // View all the books present in the collection
     }
 
-    public void view() throws IOException {
+    public void view(int filterChoice, int order) throws IOException {
         int continueToDisplay = 1;
         int startIndex = 0;
         int noOfBooksToBeDisplayed = 20;  // No of books displayed at a time.
-        while (continueToDisplay == 1) {
-            if (startIndex >= bookList.size())
-                return;
-            System.out.format("%40s %20s %15s %10s %10s %15s %20s %10s", "Title", "Author", "ISBN", "Publisher", "Language", "Published Year", "Price", "Binding");
-            System.out.println();
-            for (int i = startIndex; i < startIndex + noOfBooksToBeDisplayed && i < bookList.size(); i++) {
-                Book eachBook = bookList.get(i);
-                System.out.format("%40s %20s %15s %10s %10s %15d %20f %10s", eachBook.getBookTitle(), eachBook.getAuthor(), eachBook.getBookISBN(), eachBook.getPublisher(), eachBook.getLanguage(), eachBook.getPublishedYear(), eachBook.getPrice(), eachBook.getBindingType());
-                System.out.println();
+        displayBooksInGroups(filterChoice, order);
+        displayHeaderListView();
+        if (filterChoice == 1) {
+            displayHeaderListView();
+            if (order == 1) {
+                for (String key : authorToListOfBookMap.keySet()) {
+                    List<Book> bookList = authorToListOfBookMap.get(key);
+                    for (int i = 0; i < bookList.size(); i++)
+                        displayBookListView(bookList.get(i));
+                }
+            } else {
+                for (String key : authorToListOfBookMap.descendingKeySet()) {
+                    List<Book> bookList = authorToListOfBookMap.get(key);
+                    for (int i = 0; i < bookList.size(); i++)
+                        displayBookListView(bookList.get(i));
+                }
             }
-            System.out.println("Do you want to go to the next page ? Press 1");
-            continueToDisplay = Integer.parseInt(ob.readLine());
-            if (continueToDisplay == 1)
-                startIndex = startIndex + noOfBooksToBeDisplayed;
-            else
-                return;
+        } else if (filterChoice == 2) {
+            displayHeaderListView();
+            if (order == 1) {
+                for (String key : titleToListOfBookMap.keySet()) {
+                    List<Book> bookList = titleToListOfBookMap.get(key);
+                    for (int i = 0; i < bookList.size(); i++)
+                        displayBookListView(bookList.get(i));
+                }
+            } else {
+                for (String key : titleToListOfBookMap.descendingKeySet()) {
+                    List<Book> bookList = titleToListOfBookMap.get(key);
+                    for (int i = 0; i < bookList.size(); i++)
+                        displayBookListView(bookList.get(i));
+                }
+            }
+        } else {
+            displayHeaderListView();
+            if (order == 1) {
+                for (Integer key : yearToListOfBookMap.keySet()) {
+                    List<Book> bookList = yearToListOfBookMap.get(key);
+                    for (int i = 0; i < bookList.size(); i++)
+                        displayBookListView(bookList.get(i));
+                }
+            } else {
+                for (Integer key : yearToListOfBookMap.descendingKeySet()) {
+                    List<Book> bookList = yearToListOfBookMap.get(key);
+                    for (int i = 0; i < bookList.size(); i++)
+                        displayBookListView(bookList.get(i));
+                }
+            }
         }
+
 
     }
 
-    public void displayBook(Book book) {
+    public void displayBookDetailsView(Book book) {
         System.out.println("Title : " + book.getBookTitle());
         System.out.println("Author : " + book.getAuthor());
         System.out.println("Binding Type : " + book.getBindingType());
@@ -108,4 +146,19 @@ public class BooksObjectManager {
         System.out.println();
     }
 
+    public void displayHeaderListView() {
+        System.out.format("%40s %20s %15s %10s %10s %15s %20s %10s", "Title", "Author", "ISBN", "Publisher", "Language", "Published Year", "Price", "Binding");
+        System.out.println();
+
+    }
+
+    public void displayBookListView(Book book) {
+        System.out.format("%40s %20s %15s %10s %10s %15d %20f %10s", book.getBookTitle(), book.getAuthor(), book.getBookISBN(), book.getPublisher(), book.getLanguage(), book.getPublishedYear(), book.getPrice(), book.getBindingType());
+        System.out.println();
+
+    }
+
+    public void displayBooksInGroups(int filterchoice, int order) {
+    }
 }
+
