@@ -25,6 +25,7 @@ public class MainMenu {
             System.out.println();
             System.out.println("4. View the collection");
             System.out.println();
+            System.out.println("5. Exit \n");
             System.out.print("Enter your choice : ");
 
             BufferedReader ob = new BufferedReader(new InputStreamReader(System.in));
@@ -137,6 +138,10 @@ public class MainMenu {
                     System.out.println();
 
                     break;
+
+                case 5:
+                    System.out.println("Thank You !!");
+                    return ;
 
                 default:
                     System.out.println("Incorrect choice!");
