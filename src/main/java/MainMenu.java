@@ -79,10 +79,12 @@ public class MainMenu {
 
                     System.out.println();
                     // If the user continues to want the app
+/*
                     System.out.println("Type 1 if you want to continue !!");
                     continueToShop = !ob.readLine().equals("1") ? 0 : 1;
                     System.out.println();
                     System.out.println("Book added successfully...");
+*/
                     //store()
                     break;
 
@@ -97,9 +99,11 @@ public class MainMenu {
                             booksObjectManager.displayBookDetailsView(booksSearchedFor.get(i));
                     } else
                         System.out.println("Book not found");
+/*
                     System.out.println("Type 1 if you want to continue !!");
                     continueToShop = !ob.readLine().equals("1") ? 0 : 1;
                     System.out.println();
+*/
 
                     //search()
                     break;
@@ -107,12 +111,13 @@ public class MainMenu {
                 case 3:
                     System.out.println("Enter book you want to buy !!");
                     booksObjectManager.order(ob.readLine());
-                    System.out.println("Ordering your book...");
                     //order()
 
+/*
                     System.out.println("Type 1 if you want to continue !!");
                     continueToShop = !ob.readLine().equals("1") ? 0 : 1;
                     System.out.println();
+*/
 
                     break;
 
@@ -133,9 +138,11 @@ public class MainMenu {
 
                     booksObjectManager.view(filterChoice, order);
 
+/*
                     System.out.println("Type 1 if you want to continue !!");
                     continueToShop = !ob.readLine().equals("1") ? 0 : 1;
                     System.out.println();
+*/
 
                     break;
 
@@ -150,7 +157,6 @@ public class MainMenu {
                     break;
             }
         }
-        while (continueToShop == 1);
-        System.out.println("Thank You !!");
+        while (true);
     }
 }
