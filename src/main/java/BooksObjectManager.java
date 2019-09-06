@@ -82,56 +82,43 @@ public class BooksObjectManager {
         int continueToDisplay = 1;
         int startIndex = 0;
         int noOfBooksToBeDisplayed = 20;  // No of books displayed at a time.
-        displayBooksInGroups(filterChoice, order);
+        List<Book> bookArrayList = new ArrayList<>();
         displayHeaderListView();
         if (filterChoice == 1) {
             displayHeaderListView();
             if (order == 1) {
                 for (String key : authorToListOfBookMap.keySet()) {
-                    List<Book> bookList = authorToListOfBookMap.get(key);
-                    for (int i = 0; i < bookList.size(); i++)
-                        displayBookListView(bookList.get(i));
+                    bookArrayList.addAll(authorToListOfBookMap.get(key));
                 }
             } else {
                 for (String key : authorToListOfBookMap.descendingKeySet()) {
-                    List<Book> bookList = authorToListOfBookMap.get(key);
-                    for (int i = 0; i < bookList.size(); i++)
-                        displayBookListView(bookList.get(i));
+                    bookArrayList.addAll(authorToListOfBookMap.get(key));
                 }
             }
         } else if (filterChoice == 2) {
             displayHeaderListView();
             if (order == 1) {
                 for (String key : titleToListOfBookMap.keySet()) {
-                    List<Book> bookList = titleToListOfBookMap.get(key);
-                    for (int i = 0; i < bookList.size(); i++)
-                        displayBookListView(bookList.get(i));
+                    bookArrayList.addAll(titleToListOfBookMap.get(key));
                 }
             } else {
                 for (String key : titleToListOfBookMap.descendingKeySet()) {
-                    List<Book> bookList = titleToListOfBookMap.get(key);
-                    for (int i = 0; i < bookList.size(); i++)
-                        displayBookListView(bookList.get(i));
+                    bookArrayList.addAll(titleToListOfBookMap.get(key));
                 }
             }
         } else {
             displayHeaderListView();
             if (order == 1) {
                 for (Integer key : yearToListOfBookMap.keySet()) {
-                    List<Book> bookList = yearToListOfBookMap.get(key);
-                    for (int i = 0; i < bookList.size(); i++)
-                        displayBookListView(bookList.get(i));
+                    bookArrayList.addAll(yearToListOfBookMap.get(key));
                 }
             } else {
                 for (Integer key : yearToListOfBookMap.descendingKeySet()) {
-                    List<Book> bookList = yearToListOfBookMap.get(key);
-                    for (int i = 0; i < bookList.size(); i++)
-                        displayBookListView(bookList.get(i));
+                    bookArrayList.addAll(yearToListOfBookMap.get(key));
                 }
             }
         }
-
-
+        getPaginatedDisplay(bookArrayList, 20);
     }
 
     public void displayBookDetailsView(Book book) {
@@ -158,7 +145,33 @@ public class BooksObjectManager {
 
     }
 
-    public void displayBooksInGroups(int filterchoice, int order) {
+    public void getPaginatedDisplay(List<Book> bookList, int noOfBooksPerPage) throws IOException {
+        int startIndex = 0;
+        int choice = 1;
+        while (choice == 1 || choice == -1) {
+            if (choice == 1) {
+                startIndex = startIndex + noOfBooksPerPage;
+                if(startIndex < 0)    // If a user presses -1 a lot of times , startIndex value keeps on decreasing
+                    startIndex = 0 ;
+                for (int i = startIndex; i < startIndex + noOfBooksPerPage && i < bookList.size(); i++) {
+                    displayBookListView(bookList.get(i));
+                }
+            }
+            if (choice == -1) {
+                startIndex = startIndex - noOfBooksPerPage;
+                if(startIndex > bookList.size())        // If a user presses 1 a lot of times during the list end
+                    startIndex = bookList.size() - noOfBooksPerPage ;
+                for (int i = startIndex; i < startIndex + noOfBooksPerPage && i > -1; i++)
+                    displayBookListView(bookList.get(i));
+                // Previous Page
+            }
+            System.out.println("Press 1 to go the next page ");
+            System.out.println("Press -1 to go the previous page ");
+            System.out.println("Press 0 to exit");
+            choice = Integer.parseInt(ob.readLine());
+            if (choice == 0)
+                return;
+        }
     }
 }
 
