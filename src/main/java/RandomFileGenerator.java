@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Random;
 
 public class RandomFileGenerator {
-    public void createCsvFileWithRandomValues() throws IOException {
+    public static void main(String args[]) throws IOException {
 
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("Write.csv"));
 
@@ -46,7 +46,7 @@ public class RandomFileGenerator {
 
     }
 
-    public String generateRandomString() {
+    public static String generateRandomString() {
         String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "abcdefghijklmnopqrstuvxyz";
         StringBuilder sb = new StringBuilder(10);
 
@@ -58,7 +58,7 @@ public class RandomFileGenerator {
         return sb.toString();
     }
 
-    public int getRandomValueForPublishedYear() {
+    public static int getRandomValueForPublishedYear() {
 
         int minYear = 1800;
         int maxYear = 2019;
@@ -68,7 +68,7 @@ public class RandomFileGenerator {
         return year;
     }
 
-    public double getRandomValueForPrice() {
+    public static double getRandomValueForPrice() {
 
         int minPrice = 100;
         int maxPrice = 2000;
@@ -78,7 +78,7 @@ public class RandomFileGenerator {
         return price;
     }
 
-    public String getRandomValueForBindingType() {
+    public static String getRandomValueForBindingType() {
 
         List<String> bindingTypes = new ArrayList<>();
 
