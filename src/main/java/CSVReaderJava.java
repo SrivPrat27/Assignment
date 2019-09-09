@@ -9,24 +9,6 @@ class CSVReaderJava {
     FileReader fileReader;
     String line = null;
 
-    public List<Book> initializeListOfBooksInArrayList() throws IOException {
-
-        fileReader = new FileReader("Write.csv");
-        bufferedReader = new BufferedReader(fileReader);
-
-        List<Book> listOfBooks = new ArrayList<Book>();
-
-        //TODO : What if the title contains a "," itself
-        while ((line = bufferedReader.readLine()) != null) {
-
-            String temp[] = line.split(",");
-            listOfBooks.add(new Book(temp[0], temp[1], temp[2], temp[3], temp[4], Integer.parseInt(temp[5]), Double.parseDouble(temp[6]), BindingType.valueOf(temp[7])));
-
-        }
-
-        return listOfBooks;
-    }
-
     public Map<String, TreeMap> initializeBooksMap() throws IOException {
         fileReader = new FileReader("Write.csv");
         bufferedReader = new BufferedReader(fileReader);
