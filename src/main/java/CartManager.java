@@ -19,45 +19,39 @@ public class CartManager {
             bookToQuantityCart.put(book, bookToQuantityCart.get(book) + noOfBooks);
         }
         price = price + book.getPrice() * noOfBooks;
-/*
-        buyingList.add(book);
-        price += book.getPrice();
-*/
+
     }
 
     public void updateCartByAdding(Book book, int noOfCopies) {
         if (bookToQuantityCart.containsKey(book)) {
             bookToQuantityCart.put(book, bookToQuantityCart.get(book) + noOfCopies);
+            price = price + book.getPrice()*noOfCopies;
         } else
             System.out.println("Book Not Present In Cart");
     }
 
     public void updateCartByRemovingCopies(Book book, int noOfCopies) {
-        if(noOfCopies > bookToQuantityCart.get(book))
-        {
-            removeFromCart(book);
-            return ;
-        }
         if (bookToQuantityCart.containsKey(book)) {
+            if(noOfCopies > bookToQuantityCart.get(book))
+            {
+                removeFromCart(book);
+                return ;
+            }
             bookToQuantityCart.put(book, bookToQuantityCart.get(book) - noOfCopies);
+            price = price - book.getPrice()*noOfCopies;
         } else
             System.out.println("Book Not Present In Cart");
 
     }
 
     public void removeFromCart(Book book) {
-        int countOfBooksInCart = bookToQuantityCart.get(book);
         if (bookToQuantityCart.containsKey(book)) {
+            int countOfBooksInCart = bookToQuantityCart.get(book);
             bookToQuantityCart.remove(book);
             price = price - countOfBooksInCart * book.getPrice();
         } else {
             System.out.println("Book not present in cart");
         }
-        /*if (buyingList.contains(book)) {
-            buyingList.remove(book);
-            price -= book.getPrice();
-        } else
-            System.out.println("Book not present in cart");*/
     }
 
     public void getCartDetails() throws IOException {
