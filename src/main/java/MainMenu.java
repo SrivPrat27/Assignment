@@ -25,7 +25,10 @@ public class MainMenu {
             System.out.println();
             System.out.println("4. View the collection");
             System.out.println();
-            System.out.println("5. Exit \n");
+            System.out.println("5. View your Cart");
+            System.out.println();
+            System.out.println("6. Exit ");
+            System.out.println();
             System.out.print("Enter your choice : ");
 
             BufferedReader ob = new BufferedReader(new InputStreamReader(System.in));
@@ -78,14 +81,7 @@ public class MainMenu {
                     booksObjectManager.store(book);
 
                     System.out.println();
-                    // If the user continues to want the app
-/*
-                    System.out.println("Type 1 if you want to continue !!");
-                    continueToShop = !ob.readLine().equals("1") ? 0 : 1;
-                    System.out.println();
-                    System.out.println("Book added successfully...");
-*/
-                    //store()
+
                     break;
 
                 case 2:
@@ -99,25 +95,12 @@ public class MainMenu {
                             booksObjectManager.displayBookDetailsView(booksSearchedFor.get(i));
                     } else
                         System.out.println("Book not found");
-/*
-                    System.out.println("Type 1 if you want to continue !!");
-                    continueToShop = !ob.readLine().equals("1") ? 0 : 1;
-                    System.out.println();
-*/
 
-                    //search()
                     break;
 
                 case 3:
-                    System.out.println("Enter book you want to buy !!");
+                    System.out.println("Enter book you want to add to cart !!");
                     booksObjectManager.order(ob.readLine());
-                    //order()
-
-/*
-                    System.out.println("Type 1 if you want to continue !!");
-                    continueToShop = !ob.readLine().equals("1") ? 0 : 1;
-                    System.out.println();
-*/
 
                     break;
 
@@ -138,15 +121,19 @@ public class MainMenu {
 
                     booksObjectManager.view(filterChoice, order);
 
-/*
-                    System.out.println("Type 1 if you want to continue !!");
-                    continueToShop = !ob.readLine().equals("1") ? 0 : 1;
-                    System.out.println();
-*/
-
                     break;
 
                 case 5:
+                    System.out.println("Your Cart : ");
+                    booksObjectManager.cartManager.getCartDetails();
+                    System.out.println("Price :" + booksObjectManager.cartManager.getCartPrice());
+                    System.out.println();
+//                    System.out.println("1. Remove from cart");
+//                    System.out.println("2.");
+
+                    break;
+
+                case 6:
                     System.out.println("Thank You !!");
                     return ;
 

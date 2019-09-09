@@ -12,6 +12,7 @@ public class BooksObjectManager {
     TreeMap<Integer, List<Book>> yearToListOfBookMap = new TreeMap<>();
 
     BufferedReader ob = new BufferedReader(new InputStreamReader(System.in));
+    CartManager cartManager = new CartManager();
 
     public BooksObjectManager() throws IOException {
         initializeListOfBooks();
@@ -25,7 +26,6 @@ public class BooksObjectManager {
         titleToListOfBookMap = stringTreeMapTreeMap.get("Title");
         authorToListOfBookMap = stringTreeMapTreeMap.get("Author");
         yearToListOfBookMap = stringTreeMapTreeMap.get("Year");
-        sortBooks(2, SortOrder.ASC.toString());
     }
 
     public void store(Book book) {
@@ -44,44 +44,25 @@ public class BooksObjectManager {
     }
 
 
-    public void order(String name) {
+    public void order(String name) throws IOException {
         List<Book> books = search(name);
         if (books.size() == 1)
-            displayBookDetailsView(books.get(0));
+            cartManager.addToCart(books.get(0));
         else if (books.size() == 0)
             System.out.println("No Books Available");
         else {
             for (Book book : books) {
-                displayBookDetailsView(book);
+                cartManager.addToCart(book);
                 System.out.println();
             }
         }
-    }
-
-    public void sortBooks(int filterChoice, String order) {
-        Book book = new Book();
-        Comparator<Book> bookComparator;
-
-        if (filterChoice == 1)
-            bookComparator = book.bookAuthorComparator;
-        else if (filterChoice == 3)
-            bookComparator = book.bookPublishedYearComparator;
-        else
-            bookComparator = book.bookNameComparator;
-
-        if (SortOrder.DESC.toString().equals(order))
-            Collections.sort(bookList, Collections.reverseOrder(bookComparator));
-        else
-            Collections.sort(bookList, bookComparator);
-
-        // View all the books present in the collection
+        System.out.println("Added To Cart");
     }
 
     public void view(int filterChoice, int order) throws IOException {
         List<Book> bookArrayList = new ArrayList<>();
         displayHeaderListView();
         if (filterChoice == 1) {
-            displayHeaderListView();
             if (order == 1) {
                 for (String key : authorToListOfBookMap.keySet()) {
                     bookArrayList.addAll(authorToListOfBookMap.get(key));
@@ -92,7 +73,6 @@ public class BooksObjectManager {
                 }
             }
         } else if (filterChoice == 2) {
-            displayHeaderListView();
             if (order == 1) {
                 for (String key : titleToListOfBookMap.keySet()) {
                     bookArrayList.addAll(titleToListOfBookMap.get(key));
@@ -103,7 +83,6 @@ public class BooksObjectManager {
                 }
             }
         } else {
-            displayHeaderListView();
             if (order == 1) {
                 for (Integer key : yearToListOfBookMap.keySet()) {
                     bookArrayList.addAll(yearToListOfBookMap.get(key));
