@@ -20,10 +20,12 @@ public class Book {
 
     private BindingType bindingType;
 
+    private int quantiy = Integer.MAX_VALUE ;
+
     //For sort books operation.
+
     public Book() {
     }
-
     public Book(String bookTitle, String author, String bookISBN, String publisher, String language, int publishedYear, double price, BindingType bindingType) {
         this.bookTitle = bookTitle;
         this.author = author;
@@ -68,32 +70,9 @@ public class Book {
         return bindingType;
     }
 
-    public Comparator<Book> bookNameComparator = new Comparator<Book>() {
-        public int compare(Book book1, Book book2) {
-            String bookTitle1 = book1.getBookTitle();
-            String bookTitle2 = book2.getBookTitle();
-
-            return bookTitle1.compareTo(bookTitle2);
-        }
-    };
-
-    public Comparator<Book> bookPublishedYearComparator = new Comparator<Book>() {
-        public int compare(Book book1, Book book2) {
-            int bookYear1 = book1.getPublishedYear();
-            int bookYear2 = book2.getPublishedYear();
-
-            return bookYear1 - bookYear2;
-        }
-    };
-
-    public Comparator<Book> bookAuthorComparator = new Comparator<Book>() {
-        public int compare(Book book1, Book book2) {
-            String author1 = book1.getAuthor();
-            String author2 = book2.getAuthor();
-
-            return author1.compareTo(author2);
-        }
-    };
+    public int getQuantiy() {
+        return quantiy;
+    }
 
 }
 
