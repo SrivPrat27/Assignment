@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 import java.util.List;
 
 public class MainMenu {
-    public static void main(String args[]) throws Exception {
+    public static void main(String[] args) throws Exception {
         // Menu Display
         long time = System.currentTimeMillis();
         int continueToShop = 0;
@@ -100,7 +100,8 @@ public class MainMenu {
 
                 case 3:
                     System.out.println("Enter book you want to add to cart !!");
-                    booksObjectManager.order(ob.readLine());
+                    String bookTitle = ob.readLine();
+                    booksObjectManager.order(bookTitle);
 
                     break;
 
@@ -126,16 +127,54 @@ public class MainMenu {
                 case 5:
                     System.out.println("Your Cart : ");
                     booksObjectManager.cartManager.getCartDetails();
-                    System.out.println("Price :" + booksObjectManager.cartManager.getCartPrice());
                     System.out.println();
-//                    System.out.println("1. Remove from cart");
-//                    System.out.println("2.");
+                    System.out.println("1. Add number of copies to a book");
+                    System.out.println("2. Remove number of copies from a book");
+                    System.out.println("3. Remove a book");
+                    System.out.println("4. Buy items in the cart");
+                    System.out.println("5. Exit");
+
+                    System.out.println("Enter your choice");
+                    int choiceCart = Integer.parseInt(ob.readLine());
+
+                    System.out.println("Enter the book ISBN you want to make changes to");
+                    String bookIsbnInCart = ob.readLine();
+                    Book bookToBeUpdatedInCart = booksObjectManager.cartManager.getBookFromIsbn(bookIsbnInCart);
+
+                    switch (choiceCart) {
+                        case 1:
+                            System.out.println("Enter No of Copies To ADD");
+                            booksObjectManager.cartManager.updateCartByAdding(bookToBeUpdatedInCart, Integer.parseInt(ob.readLine()));
+
+                            break;
+
+                        case 2:
+                            System.out.println("Enter No of Copies To REMOVE");
+                            booksObjectManager.cartManager.updateCartByRemovingCopies(bookToBeUpdatedInCart, Integer.parseInt(ob.readLine()));
+
+                            break;
+
+                        case 3:
+                            booksObjectManager.cartManager.removeFromCart(bookToBeUpdatedInCart);
+
+                            break;
+
+                        case 4:
+                            booksObjectManager.cartManager.checkOut();
+
+                            break;
+                        case 5:
+                            break;
+
+                        default:
+                            System.out.println("Wrong Choice !!");
+                    }
 
                     break;
 
                 case 6:
                     System.out.println("Thank You !!");
-                    return ;
+                    return;
 
                 default:
                     System.out.println("Incorrect choice!");
