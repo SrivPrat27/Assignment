@@ -5,6 +5,7 @@ import java.util.*;
 
 public class BooksObjectManager {
 
+    long startTime;
     List<Book> bookList = new ArrayList<Book>();
     Map<String, TreeMap> stringTreeMapTreeMap = new TreeMap<>();
     TreeMap<String, List<Book>> titleToListOfBookMap = new TreeMap<>();
@@ -30,6 +31,7 @@ public class BooksObjectManager {
 
     public void store(Book book) {
         // Adding book to the the list where it can be searched and bought.
+        //TODO : Add the book to the maps as well
         bookList.add(book);
     }
 
@@ -46,14 +48,18 @@ public class BooksObjectManager {
 
     public void order(String name) throws IOException {
         List<Book> books = search(name);
-        if (books.size() == 1)
-            cartManager.addToCart(books.get(0));
+        if (books.size() == 1){
+            System.out.println("No of Books You want ?");
+            cartManager.addToCart(books.get(0), Integer.parseInt(ob.readLine()));
+        }
         else if (books.size() == 0)
             System.out.println("No Books Available");
-        else {
-            for (Book book : books) {
-                cartManager.addToCart(book);
-                System.out.println();
+        else
+        {
+            for(Book book : books)
+            {
+                System.out.println("No of Books You want ?");
+                cartManager.addToCart(book, Integer.parseInt(ob.readLine()));
             }
         }
         System.out.println("Added To Cart");
@@ -62,6 +68,7 @@ public class BooksObjectManager {
     public void view(int filterChoice, int order) throws IOException {
         List<Book> bookArrayList = new ArrayList<>();
         displayHeaderListView();
+        startTime = System.currentTimeMillis();
         if (filterChoice == 1) {
             if (order == 1) {
                 for (String key : authorToListOfBookMap.keySet()) {
@@ -131,6 +138,7 @@ public class BooksObjectManager {
                 for (int i = startIndex; i < startIndex + noOfBooksPerPage && i < bookList.size(); i++) {
                     displayBookListView(bookList.get(i));
                 }
+                System.out.println();
             }
             if (choice == -1) { // Previous Page
                 startIndex = startIndex - noOfBooksPerPage;
@@ -143,6 +151,7 @@ public class BooksObjectManager {
             System.out.println("Press 1 to go the next page ");
             System.out.println("Press -1 to go the previous page ");
             System.out.println("Press 0 to exit");
+            System.out.println("Time taken to display first page : " + (System.currentTimeMillis() - startTime) + "ms");
             choice = Integer.parseInt(ob.readLine());
             if (choice == 0)
                 return;
