@@ -48,16 +48,13 @@ public class BooksObjectManager {
 
     public void order(String name) throws IOException {
         List<Book> books = search(name);
-        if (books.size() == 1){
+        if (books.size() == 1) {
             System.out.println("No of Books You want ?");
             cartManager.addToCart(books.get(0), Integer.parseInt(ob.readLine()));
-        }
-        else if (books.size() == 0)
+        } else if (books.size() == 0)
             System.out.println("No Books Available");
-        else
-        {
-            for(Book book : books)
-            {
+        else {
+            for (Book book : books) {
                 System.out.println("No of Books You want ?");
                 cartManager.addToCart(book, Integer.parseInt(ob.readLine()));
             }
@@ -128,34 +125,50 @@ public class BooksObjectManager {
     }
 
     public void getPaginatedDisplay(List<Book> bookList, int noOfBooksPerPage) throws IOException {
-        int startIndex = 0;
         int choice = 1;
-        while (choice == 1 || choice == -1) { // Whether to continue or not
-            if (choice == 1) { // Next Page
-                startIndex = startIndex + noOfBooksPerPage;
-                if (startIndex < 0)    // If a user presses -1 a lot of times , startIndex value keeps on decreasing
-                    startIndex = 0;
-                for (int i = startIndex; i < startIndex + noOfBooksPerPage && i < bookList.size(); i++) {
-                    displayBookListView(bookList.get(i));
-                }
-                System.out.println();
-            }
-            if (choice == -1) { // Previous Page
-                startIndex = startIndex - noOfBooksPerPage;
-                if (startIndex > bookList.size())        // If a user presses 1 a lot of times during the list end
-                    startIndex = bookList.size() - noOfBooksPerPage;
-                for (int i = startIndex; i < startIndex + noOfBooksPerPage && i > -1; i++)
-                    displayBookListView(bookList.get(i));
-
-            }
+        ListIterator<Book> iterator = bookList.listIterator();
+        int count = 1;
+        while (iterator.hasNext()) {
+            displayBookListView(iterator.next());
+            if (count == noOfBooksPerPage)
+                break;
+            count++;
+        }
+        do {
             System.out.println("Press 1 to go the next page ");
             System.out.println("Press -1 to go the previous page ");
             System.out.println("Press 0 to exit");
-            System.out.println("Time taken to display first page : " + (System.currentTimeMillis() - startTime) + "ms");
             choice = Integer.parseInt(ob.readLine());
+            if (choice == 1) {
+                count = 1;
+                while (iterator.hasNext()) {
+                    displayBookListView(iterator.next());
+                    if (count == noOfBooksPerPage)
+                        break;
+                    count++;
+                }
+            }
             if (choice == 0)
                 return;
+            if (choice == -1) {
+                count = 1;
+                while (iterator.hasPrevious()) {
+                    iterator.previous();
+                    if (count == 2 * noOfBooksPerPage)
+                        break;
+                    count++;
+                }
+                count = 1;
+                while (iterator.hasNext()) {
+                    displayBookListView(iterator.next());
+                    if (count == noOfBooksPerPage)
+                        break;
+                    count++;
+                }
+            }
         }
+        while (true);
     }
+    
 }
 
