@@ -48,6 +48,7 @@ public class BooksObjectManager {
 
     public void order(String name) throws IOException {
         List<Book> books = search(name);
+        String Isbn = "";
         if (books.size() == 1) {
             System.out.println("No of Books You want ?");
             cartManager.addToCart(books.get(0), Integer.parseInt(ob.readLine()));
@@ -55,8 +56,19 @@ public class BooksObjectManager {
             System.out.println("No Books Available");
         else {
             for (Book book : books) {
-                System.out.println("No of Books You want ?");
-                cartManager.addToCart(book, Integer.parseInt(ob.readLine()));
+                displayHeaderListView();
+                displayBookListView(book);
+                System.out.println();
+            }
+
+            System.out.println("Enter the ISBN of the book you want ?");
+            Isbn = ob.readLine();
+
+            for (Book book : books) {
+                if (book.getBookISBN().equals(Isbn)) {
+                    System.out.println("Enter No of copies you want ?");
+                    cartManager.addToCart(book, Integer.parseInt(ob.readLine()));
+                }
             }
         }
         System.out.println("Added To Cart");
@@ -169,6 +181,6 @@ public class BooksObjectManager {
         }
         while (true);
     }
-    
+
 }
 
