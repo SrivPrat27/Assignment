@@ -137,37 +137,39 @@ public class MainMenu {
                     System.out.println("Enter your choice");
                     int choiceCart = Integer.parseInt(ob.readLine());
 
-                    System.out.println("Enter the book ISBN you want to make changes to");
-                    String bookIsbnInCart = ob.readLine();
-                    Book bookToBeUpdatedInCart = booksObjectManager.cartManager.getBookFromIsbn(bookIsbnInCart);
+                    if (choiceCart != 5) {
+                        System.out.println("Enter the book ISBN you want to make changes to");
+                        String bookIsbnInCart = ob.readLine();
+                        Book bookToBeUpdatedInCart = booksObjectManager.cartManager.getBookFromIsbn(bookIsbnInCart);
 
-                    switch (choiceCart) {
-                        case 1:
-                            System.out.println("Enter No of Copies To ADD");
-                            booksObjectManager.cartManager.updateCartByAdding(bookToBeUpdatedInCart, Integer.parseInt(ob.readLine()));
+                        switch (choiceCart) {
+                            case 1:
+                                System.out.println("Enter No of Copies To ADD");
+                                booksObjectManager.cartManager.updateCartByAdding(bookToBeUpdatedInCart, Integer.parseInt(ob.readLine()));
 
-                            break;
+                                break;
 
-                        case 2:
-                            System.out.println("Enter No of Copies To REMOVE");
-                            booksObjectManager.cartManager.updateCartByRemovingCopies(bookToBeUpdatedInCart, Integer.parseInt(ob.readLine()));
+                            case 2:
+                                System.out.println("Enter No of Copies To REMOVE");
+                                booksObjectManager.cartManager.updateCartByRemovingCopies(bookToBeUpdatedInCart, Integer.parseInt(ob.readLine()));
 
-                            break;
+                                break;
 
-                        case 3:
-                            booksObjectManager.cartManager.removeFromCart(bookToBeUpdatedInCart);
+                            case 3:
+                                booksObjectManager.cartManager.removeFromCart(bookToBeUpdatedInCart);
 
-                            break;
+                                break;
 
-                        case 4:
-                            booksObjectManager.cartManager.checkOut();
+                            case 4:
+                                booksObjectManager.cartManager.checkOut();
 
-                            break;
-                        case 5:
-                            break;
+                                break;
+                            case 5:
+                                break;
 
-                        default:
-                            System.out.println("Wrong Choice !!");
+                            default:
+                                System.out.println("Wrong Choice !!");
+                        }
                     }
 
                     break;
