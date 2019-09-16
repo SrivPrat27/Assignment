@@ -9,8 +9,8 @@ class CSVReaderJava {
     FileReader fileReader;
     String line = null;
 
-    public Map<String, TreeMap> initializeBooksMap() throws IOException {
-        fileReader = new FileReader("Write.csv");
+    public Map<String, TreeMap> initializeBooksMap(String filePath) throws IOException {
+        fileReader = new FileReader(filePath);
         bufferedReader = new BufferedReader(fileReader);
 
         TreeMap<String, TreeMap> mapContainingAllMaps = new TreeMap<>();

@@ -15,15 +15,15 @@ public class BooksObjectManager {
     BufferedReader ob = new BufferedReader(new InputStreamReader(System.in));
     CartManager cartManager = new CartManager();
 
-    public BooksObjectManager() throws IOException {
-        initializeListOfBooks();
+    public BooksObjectManager(String filePath) throws IOException {
+        initializeListOfBooks(filePath);
     }
 
 
-    public void initializeListOfBooks() throws IOException {
+    public void initializeListOfBooks(String filePath) throws IOException {
         CSVReaderJava csvReaderJava = new CSVReaderJava();
         //bookList = csvReaderJava.initializeListOfBooksInArrayList();
-        stringTreeMapTreeMap = csvReaderJava.initializeBooksMap();
+        stringTreeMapTreeMap = csvReaderJava.initializeBooksMap(filePath);
         titleToListOfBookMap = stringTreeMapTreeMap.get("Title");
         authorToListOfBookMap = stringTreeMapTreeMap.get("Author");
         yearToListOfBookMap = stringTreeMapTreeMap.get("Year");

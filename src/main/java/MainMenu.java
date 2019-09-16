@@ -9,9 +9,18 @@ import java.util.List;
 public class MainMenu {
     public static void main(String[] args) throws Exception {
         // Menu Display
+
+
+        BufferedReader ob = new BufferedReader(new InputStreamReader(System.in));
+        String path;
+        if (args.length == 1)
+            path = ob.readLine();
+        else
+            path = "/home/pratyush/rep/Assignment_Cart/Write.csv";
+
         long time = System.currentTimeMillis();
         int continueToShop = 0;
-        BooksObjectManager booksObjectManager = new BooksObjectManager();
+        BooksObjectManager booksObjectManager = new BooksObjectManager(path);
         System.out.println("Loading Time : " + (System.currentTimeMillis() - time));
 
         do {
@@ -31,7 +40,6 @@ public class MainMenu {
             System.out.println();
             System.out.print("Enter your choice : ");
 
-            BufferedReader ob = new BufferedReader(new InputStreamReader(System.in));
             int choice = Integer.parseInt(ob.readLine());
 
             switch (choice) {
